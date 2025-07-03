@@ -16,16 +16,16 @@ import java.util.UUID;
 public class QiniuUploadUtils {
 
     //设置好账号的ACCESS_KEY和SECRET_KEY;这两个登录七牛账号里面可以找到
-    static String ACCESS_KEY = "OkCBp01b1_aZJ_iFmBOugZTc7u8G_MxGVeyWv7Fz";
-    static String SECRET_KEY = "SE81GldpxmrXjdi262mkLauRz2FJNBCWCwlKwTEV";
-    //要上传的空间;对应到七牛上（自己建文件夹 注意设置公开）  //http://qgbu6ffn6.hn-bkt.clouddn.com
+    static String ACCESS_KEY = "";
+    static String SECRET_KEY = "";
+    //要上传的空间;对应到七牛上（自己建文件夹 注意设置公开） 
     static String bucketname = "zyq-images";
     //定义访问的域名
-    static String yName = "http://svbxca0zm.hb-bkt.clouddn.com/";
+    static String yName = "";
     //上传到七牛后保存的文件名
     static String key = UUID.randomUUID().toString().replace("-", "");
     //上传文件的路径 ;本地要上传文件路径
-    // String FilePath = "C:\\Users\\Administrator\\Pictures\\goodHeader\\g101301.jpg";
+    // String FilePath = "";
     //密钥配置
     static Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
     //创建上传对象,Zone.zone2()为华南地区的服务器
