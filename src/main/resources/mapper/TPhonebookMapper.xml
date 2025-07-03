@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.zyq.phonebook.springboot.mapper.TPhonebookMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="TPhonebook" id="tPhonebookMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="phonenumber" column="phoneNumber"/>
+        <result property="telenumber" column="teleNumber"/>
+        <result property="workaddress" column="workAddress"/>
+        <result property="homeaddress" column="homeAddress"/>
+        <result property="image" column="image"/>
+        <result property="remark" column="remark"/>
+        <result property="initial" column="initial"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_TPhonebookColumns_List" > 
+  	  id ,        
+  name ,        
+   phoneNumber  ,        
+   teleNumber  ,        
+   workAddress  ,        
+   homeAddress  ,        
+  image ,        
+  remark ,        
+  initial         
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_TPhonebookColumns_List" >
+       #{id},   #{name},   #{phonenumber},   #{telenumber},   #{workaddress},   #{homeaddress},   #{image},   #{remark},   #{initial}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_TPhonebookColumns_List" >
+    <set>
+    <if test="name != null">name = #{name}, </if>
+    <if test="phonenumber != null">phoneNumber = #{phonenumber}, </if>
+    <if test="telenumber != null">teleNumber = #{telenumber}, </if>
+    <if test="workaddress != null">workAddress = #{workaddress}, </if>
+    <if test="homeaddress != null">homeAddress = #{homeaddress}, </if>
+    <if test="image != null">image = #{image}, </if>
+    <if test="remark != null">remark = #{remark}, </if>
+    <if test="initial != null">initial = #{initial}</if>
+	</set>
+	where id = #{id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_TPhonebookPramas_List">
+    <where>
+    <if test="id != null">and id = #{id}</if>
+    <if test="name != null">and name = #{name}</if>
+    <if test="phonenumber != null">and phoneNumber = #{phonenumber}</if>
+    <if test="telenumber != null">and teleNumber = #{telenumber}</if>
+    <if test="workaddress != null">and workAddress = #{workaddress}</if>
+    <if test="homeaddress != null">and homeAddress = #{homeaddress}</if>
+    <if test="image != null">and image = #{image}</if>
+    <if test="remark != null">and remark = #{remark}</if>
+    <if test="initial != null">and initial = #{initial}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_TPhonebookPramas_List">
+    <where>
+    <if test="id != null">and id = #{id}</if>
+    <if test="name != null">and name = #{name}</if>
+    <if test="phonenumber != null">and phoneNumber = #{phonenumber}</if>
+    <if test="telenumber != null">and teleNumber = #{telenumber}</if>
+    <if test="workaddress != null">and workAddress = #{workaddress}</if>
+    <if test="homeaddress != null">and homeAddress = #{homeaddress}</if>
+    <if test="image != null">and image = #{image}</if>
+    <if test="remark != null">and remark = #{remark}</if>
+    <if test="initial != null">and initial = #{initial}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into t_phonebook values (<include refid="ins_TPhonebookColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update t_phonebook <include refid="upd_TPhonebookColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from t_phonebook <include refid="del_TPhonebookPramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from t_phonebook where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="tPhonebookMap">
+		select  <include refid="sel_TPhonebookColumns_List" />  from t_phonebook where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="tPhonebookMap">
+		select  <include refid="sel_TPhonebookColumns_List" />  from t_phonebook
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="tPhonebookMap">
+		select  <include refid="sel_TPhonebookColumns_List" />  from t_phonebook <include refid="sel_TPhonebookPramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="tPhonebookMap">
+		select  <include refid="sel_TPhonebookColumns_List" />  from t_phonebook <include refid="sel_TPhonebookPramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="tPhonebookMap">
+        select  <include refid="sel_TPhonebookColumns_List" />  from t_phonebook <include refid="sel_TPhonebookPramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from t_phonebook <include refid="sel_TPhonebookPramas_List" />
+	</select>
+	
+
+
+</mapper>
